@@ -1,0 +1,80 @@
+spring:
+  application:
+    name: name-of-service-on-ocp
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:oracle:thin:@//url:port/databaseName}
+    username: ${DATABASE_USERNAME:}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: oracle.jdbc.OracleDriver
+    # HikariCP settings
+    hikari:
+      minimumIdle: ${HIKARI_MINIMUM_IDLE:5}
+      maximumPoolSize: ${HIKARI_MAX_POOL_SIZE:20}
+      idleTimeout: ${HIKARI_IDLE_TIME:30000}
+      maxLifetime: ${HIKARI_MAX_LIFE_TIME:2000000}
+      connectionTimeout: ${HIKARI_CONNECTION_TIME_OUT:3000}
+      poolName: HikariPool
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    show-sql: false
+
+
+apps:
+  timeout: ${APP_TIMEOUT:60000}
+service:
+  api-enable-key-sign: ${API_ENABLE_KEY_SIGN:0}
+  api-username: ${API_USERNAME:admin}
+  api-password: ${API_PASSWORD:admin}
+  api-success-code: '${ API_SUCCESS_CODE :00}'
+  api-success-code-desc: '${API_SUCCESS_CODE_DESC:SUCCESS}'
+  api-error-code: '${API_ERROR_CODE:01}'
+  api-error-code-desc: '${API_ERROR_CODE_DESC:FAILED}'
+  payload:
+    salt: '${PAYLOAD_SALT:}'
+sms:
+  serverUrl: '${SMS_SERVER_URL:http://url:port/api/}'
+  action: '${SMS_ACTION:sendmes}'
+  username: '${SMS_USERNAME:}'
+  password: '${SMS_PASSWORD:}'
+  messageType: '${SMS_MESSAGE_TYPE:SMS}'
+  enabled: '${SMS_ENABLED:true}'
+jwt:
+  secret: '${JWT_SECRET:}'
+  access-token-expiration-time: '${ACCESS_TOKEN_EXPIRATION_TIME:}'
+
+app:
+  security:
+    pass-encrypt-key: ${TOKEN_KEY:}
+    init-vector: ${ENCRYPT_INIT_VECTOR:}
+iprs:
+  external:
+    url: ${IPRS_EXTERNAL_URL:}
+ocp:
+  internal:
+    url: ${OCP_INTERNAL_URL:}
+request:
+  header:
+    featureCode: ${FEATURE_CODE:}
+    featureName: ${FEATURE_NAME:}
+    serviceCode: ${SERVICE_CODE:}
+    serviceName: ${SERVICE_NAME:}
+    serviceSubCategory: ${SERVICE_SUB_CATEGORY:}
+    minorServiceVersion: ${MINOR_SERVICE_VERSION:}
+    channelCode: ${CHANNEL_CODE:}
+    channelName: ${CHANEL_NAME:}
+    routeCode: ${ROUTE_CODE:}
+    serviceMode: ${SERVICE_MODE:}
+    subscribeEvents: ${SUBSCRIBE_EVENTS:}
+    companyCode: ${COMPANY_CODE:}
